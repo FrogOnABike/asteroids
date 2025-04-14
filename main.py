@@ -38,16 +38,24 @@ def main():
         
         screen.fill("black")
         updatable.update(dt)
+        
+        #Player collision detetion
         for roid in asteroids:
             if roid.collision(craft):
                 print("Game Over!")
                 sys.exit()
-                
+
+        for roid in asteroids:
+            for pew in shots:
+                if pew.collision(roid):
+                    roid.kill()
+                    pew.kill()
+
         for item in drawable:
             item.draw(screen)
-        # craft.draw(screen)
+    
         pygame.display.flip()
-        dt = screen_timer.tick()/1000
+        dt = screen_timer.tick(60)/1000
         screen_timer.tick(60)
 
 if __name__ == "__main__":
